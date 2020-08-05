@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
+  "name": "freshlinks",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Freshlinks",
   "main": "lib/main.js",
   "bin": {
     "freshlinks": "bin/freshlinks"
@@ -11,7 +11,6 @@
     "build": "tsc",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
-    "freshlinks": "lib/cli.js",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map",
     "test": "jest",
@@ -29,7 +28,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.4",
     "commonmark": "^0.29.1"
   },
   "devDependencies": {
