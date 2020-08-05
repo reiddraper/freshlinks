@@ -4,10 +4,14 @@
   "private": true,
   "description": "TypeScript template action",
   "main": "lib/main.js",
+  "bin": {
+    "freshlinks": "bin/freshlinks"
+  },
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
+    "freshlinks": "lib/cli.js",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map",
     "test": "jest",
@@ -25,9 +29,11 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.4"
+    "@actions/core": "^1.2.4",
+    "commonmark": "^0.29.1"
   },
   "devDependencies": {
+    "@types/commonmark": "^0.27.4",
     "@types/jest": "^26.0.7",
     "@types/node": "^14.0.25",
     "@typescript-eslint/parser": "^3.7.0",
