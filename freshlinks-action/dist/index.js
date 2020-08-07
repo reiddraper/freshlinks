@@ -1446,10 +1446,12 @@ function run() {
             const scan_glob = core.getInput('glob');
             core.debug(`Scanning glob ${scan_glob}`); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
             const globber = yield glob.create(scan_glob);
+            let failed = false;
             try {
                 for (var _b = __asyncValues(freshlinks.validate_markdown_links_from_files(globber.globGenerator())), _c; _c = yield _b.next(), !_c.done;) {
                     const [link, valid] = _c.value;
                     if (valid === freshlinks.LinkValidity.Invalid) {
+                        failed = true;
                         const msg = `file=${link.sourceFile},line=${link.startLine},col:${link.startCol}::Could not find ${link.link}`;
                         core.error(msg);
                     }
@@ -1462,7 +1464,9 @@ function run() {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-            core.setOutput('time', new Date().toTimeString());
+            if (failed) {
+                core.setFailed('Invalid links found');
+            }
         }
         catch (error) {
             core.setFailed(error.message);

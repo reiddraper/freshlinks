@@ -9,6 +9,8 @@ async function run(): Promise<void> {
 
     const globber = await glob.create(scan_glob)
 
+    let failed = false
+
     for await (const [
       link,
       valid
@@ -16,12 +18,15 @@ async function run(): Promise<void> {
       globber.globGenerator()
     )) {
       if (valid === freshlinks.LinkValidity.Invalid) {
+        failed = true
         const msg = `file=${link.sourceFile},line=${link.startLine},col:${link.startCol}::Could not find ${link.link}`
         core.error(msg)
       }
     }
 
-    core.setOutput('time', new Date().toTimeString())
+    if (failed) {
+      core.setFailed('Invalid links found')
+    }
   } catch (error) {
     core.setFailed(error.message)
   }
