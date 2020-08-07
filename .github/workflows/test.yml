@@ -21,4 +21,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          glob: freshlinks-actions/data/test/**/*.md
+          glob: **/*.md
