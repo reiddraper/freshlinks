@@ -12,6 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
+          cd freshlinks && npm install
+      - run: |
+          cd freshlinks && npm run all
+      - run: |
           cd freshlinks-action && npm install
       - run: |
           cd freshlinks-action && npm run all
