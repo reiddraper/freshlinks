@@ -16,7 +16,7 @@ async function run(): Promise<void> {
       globber.globGenerator()
     )) {
       if (valid === freshlinks.LinkValidity.Invalid) {
-        const msg = `file=${link.sourceFile},line=${link.startLine},col:${link.startCol},::Could not find ${link.link}`
+        const msg = `file=${link.sourceFile},line=${link.startLine},col:${link.startCol}::Could not find ${link.link}`
         core.error(msg)
       }
     }

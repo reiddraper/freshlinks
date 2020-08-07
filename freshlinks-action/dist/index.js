@@ -1450,7 +1450,7 @@ function run() {
                 for (var _b = __asyncValues(freshlinks.validate_markdown_links_from_files(globber.globGenerator())), _c; _c = yield _b.next(), !_c.done;) {
                     const [link, valid] = _c.value;
                     if (valid === freshlinks.LinkValidity.Invalid) {
-                        const msg = `file=${link.sourceFile},line=${link.startLine},col:${link.startCol},:: Could not find ${link.link}`;
+                        const msg = `file=${link.sourceFile},line=${link.startLine},col:${link.startCol}::Could not find ${link.link}`;
                         core.error(msg);
                     }
                 }
