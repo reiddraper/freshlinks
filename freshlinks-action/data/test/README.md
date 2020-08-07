@@ -6,3 +6,5 @@
 - Items
 
 I have a [link to another page](second.md).
+
+I also link to [this email](email@example.com).
