@@ -19,7 +19,10 @@ async function run(): Promise<void> {
     )) {
       if (valid === freshlinks.LinkValidity.Invalid) {
         failed = true
-        const sourceFile = link.sourceFile.replace('/home/runner/work/', '')
+        const sourceFile = link.sourceFile.replace(
+          '/home/runner/work/freshlinks/freshlinks/',
+          ''
+        )
         const msg = `file=${sourceFile},line=${link.startLine},col=${link.startCol}::Could not find ${link.link}`
         console.log(`::error ${msg}`) // eslint-disable-line no-console
       }
