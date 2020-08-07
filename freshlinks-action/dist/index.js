@@ -1452,8 +1452,9 @@ function run() {
                     const [link, valid] = _c.value;
                     if (valid === freshlinks.LinkValidity.Invalid) {
                         failed = true;
-                        const msg = `file=${link.sourceFile},line=${link.startLine},col=${link.startCol}::Could not find ${link.link}`;
-                        core.error(msg);
+                        const sourceFile = link.sourceFile.replace('/home/runner/work/', '');
+                        const msg = `file=${sourceFile},line=${link.startLine},col=${link.startCol}::Could not find ${link.link}`;
+                        console.log(`::error ${msg}`); // eslint-disable-line no-console
                     }
                 }
             }
