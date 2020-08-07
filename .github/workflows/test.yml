@@ -12,13 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          npm install
+          cd freshlinks-action && npm install
       - run: |
-          npm run all
+          cd freshlinks-action && npm run all
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: ./freshlinks-action
         with:
-          milliseconds: 1000
+          glob: freshlinks-actions/data/test/**/*.md

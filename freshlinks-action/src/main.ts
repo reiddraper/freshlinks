@@ -1,14 +1,25 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as glob from '@actions/glob'
+import * as freshlinks from 'freshlinks'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const scan_glob: string = core.getInput('glob')
+    core.debug(`Scanning glob ${scan_glob}`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const globber = await glob.create(scan_glob)
+
+    for await (const [
+      link,
+      valid
+    ] of freshlinks.validate_markdown_links_from_files(
+      globber.globGenerator()
+    )) {
+      if (valid === freshlinks.LinkValidity.Invalid) {
+        const msg = `file=${link.sourceFile},line=${link.startLine},col:${link.startCol},::Could not find ${link.link}`
+        core.error(msg)
+      }
+    }
 
     core.setOutput('time', new Date().toTimeString())
   } catch (error) {

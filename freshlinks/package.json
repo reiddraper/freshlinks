@@ -8,7 +8,7 @@
     "freshlinks": "bin/freshlinks"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --declaration",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",

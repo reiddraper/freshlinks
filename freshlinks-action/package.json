@@ -30,6 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.4",
+    "@actions/glob": "^0.1.0",
     "commonmark": "^0.29.1",
     "freshlinks": "file:../freshlinks"
   },
