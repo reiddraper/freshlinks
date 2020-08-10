@@ -25,4 +25,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          glob: '**/*.md'
+          glob: 'freshlinks-action/data/test/succeeds/**/*.md'
