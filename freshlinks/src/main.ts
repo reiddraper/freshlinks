@@ -1,4 +1,4 @@
-import {formatMarkdownLink} from './format'
+import {formatMarkdownLink, formatInvalidMarkdownLink} from './format'
 import {
   MarkdownLink,
   parse_markdown_links_from_file,
@@ -8,6 +8,7 @@ import {LinkValidity, valid_link} from './validate-link'
 
 export {
   formatMarkdownLink,
+  formatInvalidMarkdownLink,
   MarkdownLink,
   parse_markdown_links_from_file,
   parse_markdown_links_from_files,

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import {parse_markdown_links_from_file} from './parse-markdown-links'
-import {formatMarkdownLink} from './format'
+import {formatInvalidMarkdownLink} from './format'
 import {valid_link, LinkValidity} from './validate-link'
 import * as yargs from 'yargs'
 import * as process from 'process'
@@ -18,7 +18,7 @@ async function run(): Promise<void> {
           // there's probably a better way to only set this once,
           // but :shrug:
           exitCode = 1
-          console.log(formatMarkdownLink(link, valid))
+          console.log(formatInvalidMarkdownLink(link))
         }
       }
     } catch (error) {
