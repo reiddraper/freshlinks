@@ -11,8 +11,7 @@ test('Returns an error with broken links', () => {
   }
   expect(() => {
     cp.execSync(`node ${ip}`, options).toString()
-  }
-  ).toThrow()
+  }).toThrow()
 })
 
 test('Runs succesfully with no broken links', () => {
@@ -23,6 +22,5 @@ test('Runs succesfully with no broken links', () => {
   }
   expect(() => {
     cp.execSync(`node ${ip}`, options).toString()
-  }
-  )
+  })
 })
