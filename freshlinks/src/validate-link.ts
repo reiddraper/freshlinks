@@ -17,11 +17,6 @@ export async function valid_link(link: MarkdownLink): Promise<LinkValidity> {
       linkPath = ''
     }
 
-    // NOTE TO SELF
-    // The current issue is I'm concatenating the filename with the relative path.
-    // I need to concatenate the *directory* with the relative path, and the relative path needs
-    // to have the first `../` removed, if it exists (since we've already backed up a directory going from filename to dir)
-
     const sourceFile = dirname(link.sourceFile)
 
     // don't test absolute paths

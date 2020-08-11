@@ -29,6 +29,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^4.1.0",
     "commonmark": "^0.29.1",
     "yargs": "^15.4.1"
   },

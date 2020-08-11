@@ -26,7 +26,6 @@ async function run(): Promise<void> {
       exitCode = 1
     }
   }
-  console.log(`Exit code is ${exitCode}`)
   process.exit(exitCode)
 }
 

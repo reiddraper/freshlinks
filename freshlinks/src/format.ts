@@ -1,5 +1,6 @@
 import {MarkdownLink} from './parse-markdown-links'
 import {LinkValidity} from './validate-link'
+import chalk from 'chalk'
 
 export function formatMarkdownLink(
   link: MarkdownLink,
@@ -9,5 +10,8 @@ export function formatMarkdownLink(
 }
 
 export function formatInvalidMarkdownLink(link: MarkdownLink): string {
-  return `File: ${link.sourceFile}\tLink: ${link.link}\tLocation: ${link.startLine}:${link.startCol},${link.endLine}:${link.endCol}\tRelative link could not be resolved.`
+  const errorString = `
+  ${chalk.underline(`${link.sourceFile}:${link.startLine}`)}
+  ${chalk.bold.red('Error')} Could not resolve link: ${chalk.yellow(link.link)}`
+  return errorString
 }
