@@ -1098,10 +1098,11 @@ function valid_link(link) {
             if (!linkPath) {
                 linkPath = '';
             }
+            const decodedLinkPath = decodeURIComponent(linkPath);
             const sourceFile = path_1.dirname(link.sourceFile);
             // don't test absolute paths
-            if (!linkPath.startsWith('/')) {
-                const joinedLinkPath = path_1.join(sourceFile, linkPath);
+            if (!decodedLinkPath.startsWith('/')) {
+                const joinedLinkPath = path_1.join(sourceFile, decodedLinkPath);
                 try {
                     yield fs_1.promises.access(joinedLinkPath);
                     return LinkValidity.Valid;

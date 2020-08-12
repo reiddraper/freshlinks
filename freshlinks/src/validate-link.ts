@@ -17,11 +17,13 @@ export async function valid_link(link: MarkdownLink): Promise<LinkValidity> {
       linkPath = ''
     }
 
+    const decodedLinkPath = decodeURIComponent(linkPath)
+
     const sourceFile = dirname(link.sourceFile)
 
     // don't test absolute paths
-    if (!linkPath.startsWith('/')) {
-      const joinedLinkPath = join(sourceFile, linkPath)
+    if (!decodedLinkPath.startsWith('/')) {
+      const joinedLinkPath = join(sourceFile, decodedLinkPath)
       try {
         await fs.access(joinedLinkPath)
         return LinkValidity.Valid
