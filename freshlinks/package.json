@@ -29,8 +29,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@actions/exec": "^1.0.4",
     "chalk": "^4.1.0",
     "commonmark": "^0.29.1",
+    "fastest-levenshtein": "^1.0.12",
     "yargs": "^15.4.1"
   },
   "devDependencies": {

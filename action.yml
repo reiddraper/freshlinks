@@ -4,7 +4,10 @@ author: 'Reid Draper'
 inputs:
   glob: # change this
     required: true
-    description: 'glob to find markdown files'
+    description: 'Glob to find markdown files'
+  suggestions:
+    required: false
+    description: 'Provide link suggestions when an invalid link is found'
 runs:
   using: 'node12'
   main: 'freshlinks-action/dist/index.js'

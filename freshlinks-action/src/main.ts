@@ -4,8 +4,16 @@ import * as freshlinks from 'freshlinks'
 
 async function run(): Promise<void> {
   try {
-    const scan_glob: string = core.getInput('glob')
+    const scan_glob: string = core.getInput('glob', {required: true})
+    const suggestions: boolean = core.getInput('suggestions') !== 'false'
     core.debug(`Scanning glob ${scan_glob}`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+
+    let possibleLinkDestinations: string[]
+    if (suggestions) {
+      possibleLinkDestinations = await freshlinks.gitLsFiles()
+    } else {
+      possibleLinkDestinations = []
+    }
 
     const globber = await glob.create(scan_glob)
 
@@ -23,7 +31,22 @@ async function run(): Promise<void> {
           '/home/runner/work/freshlinks/freshlinks/',
           ''
         )
-        const msg = `file=${sourceFile},line=${link.startLine},col=${link.startCol}::Could not find ${link.link}`
+
+        let errorMsg = `Could not find ${link.link}`
+
+        if (suggestions) {
+          const [suggestion, distance] = freshlinks.suggestPath(
+            link.sourceFile,
+            link.link,
+            possibleLinkDestinations
+          )
+          // Don't suggest matches that are too far away from the original
+          // link
+          if (distance <= freshlinks.SUGGEST_MIN_DISTANCE) {
+            errorMsg = `Could not find link. Perhaps you meant: \`${suggestion}\`?`
+          }
+        }
+        const msg = `file=${sourceFile},line=${link.startLine},col=${link.startCol}::${errorMsg}`
         console.log(`::error ${msg}`) // eslint-disable-line no-console
       }
     }

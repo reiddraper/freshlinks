@@ -5,6 +5,8 @@ import {
   parse_markdown_links_from_files
 } from './parse-markdown-links'
 import {LinkValidity, valid_link} from './validate-link'
+import {suggestPath, SUGGEST_MIN_DISTANCE} from './suggest-path'
+import {gitLsFiles} from './git'
 
 export {
   formatMarkdownLink,
@@ -13,7 +15,10 @@ export {
   parse_markdown_links_from_file,
   parse_markdown_links_from_files,
   LinkValidity,
-  valid_link
+  valid_link,
+  gitLsFiles,
+  suggestPath,
+  SUGGEST_MIN_DISTANCE
 }
 
 export async function* validate_markdown_links_from_files(
