@@ -11,7 +11,7 @@ export function formatMarkdownLink(
 
 export function formatInvalidMarkdownLink(link: MarkdownLink): string {
   const errorString = `
-  ${chalk.underline(`${link.sourceFile}:${link.startLine}`)}
-  ${chalk.bold.red('Error')} Could not resolve link: ${chalk.yellow(link.link)}`
+${chalk.underline(`${link.sourceFile}:${link.startLine}`)}
+${chalk.bold.red('Error')} Could not resolve link: ${chalk.yellow(link.link)}`
   return errorString
 }
