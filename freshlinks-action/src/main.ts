@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as glob from '@actions/glob'
 import * as freshlinks from 'freshlinks'
-import * as mustache from 'mustache'
+import Mustache from 'mustache'
 
 const defaultErrorTemplate = `
 Could not find {{link}}.
@@ -62,9 +62,10 @@ function reportFile(
   }
 
   // Replace newline with %0A
-  const errorMsg = mustache
-    .render(defaultErrorTemplate, templateArgs)
-    .replace('\n', '%0A')
+  const errorMsg = Mustache.render(defaultErrorTemplate, templateArgs).replace(
+    '\n',
+    '%0A'
+  )
 
   const msg = `file=${sourceFile},line=${link.startLine},col=${link.startCol}::${errorMsg}`
   console.log(`::error ${msg}`) // eslint-disable-line no-console
@@ -112,4 +113,5 @@ async function run(): Promise<void> {
   }
 }
 
+Mustache.escape = (text: string) => text
 run()

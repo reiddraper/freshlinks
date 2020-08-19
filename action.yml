@@ -2,12 +2,15 @@ name: 'Freshlinks'
 description: 'Validate local markdown links in a repository'
 author: 'Reid Draper'
 inputs:
-  glob: # change this
+  glob:
     required: true
     description: 'Glob to find markdown files'
   suggestions:
     required: false
     description: 'Provide link suggestions when an invalid link is found'
+  error_template:
+    required: false
+    description: 'A mustache template string to override error messages.'
 runs:
   using: 'node12'
   main: 'freshlinks-action/dist/index.js'

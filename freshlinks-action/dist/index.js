@@ -2353,11 +2353,14 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const glob = __importStar(__webpack_require__(281));
 const freshlinks = __importStar(__webpack_require__(412));
-const mustache = __importStar(__webpack_require__(174));
+const mustache_1 = __importDefault(__webpack_require__(174));
 const defaultErrorTemplate = `
 Could not find {{link}}.
 {{#suggestion}}
@@ -2409,7 +2412,7 @@ function reportFile(link, suggestions, possibleLinkDestinations) {
         templateArgs.suggestion = { suggested_link: suggestion };
     }
     // Replace newline with %0A
-    const errorMsg = mustache
+    const errorMsg = mustache_1.default
         .render(defaultErrorTemplate, templateArgs)
         .replace('\n', '%0A');
     const msg = `file=${sourceFile},line=${link.startLine},col=${link.startCol}::${errorMsg}`;
@@ -2444,6 +2447,7 @@ function run() {
         }
     });
 }
+mustache_1.default.escape = (text) => text;
 run();
 
 
