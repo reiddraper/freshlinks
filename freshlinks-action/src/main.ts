@@ -25,7 +25,8 @@ async function calculatePossibleLinkDestinations(
 async function checkFiles(
   globber: glob.Globber,
   suggestions: boolean,
-  possibleLinkDestinations: string[]
+  possibleLinkDestinations: string[],
+  annotationTemplate: string
 ): Promise<boolean> {
   let failCount = 0
   for await (const [
@@ -36,7 +37,12 @@ async function checkFiles(
       failCount++
     }
     if (valid === freshlinks.LinkValidity.Invalid) {
-      reportFile(link, suggestions, possibleLinkDestinations)
+      reportFile(
+        link,
+        suggestions,
+        possibleLinkDestinations,
+        annotationTemplate
+      )
     }
   }
   return failCount > 0 ? true : false
@@ -45,7 +51,8 @@ async function checkFiles(
 function reportFile(
   link: freshlinks.MarkdownLink,
   suggestions: boolean,
-  possibleLinkDestinations: string[]
+  possibleLinkDestinations: string[],
+  annotationTemplate: string
 ): void {
   const sourceFile = link.sourceFile.replace(
     '/home/runner/work/freshlinks/freshlinks/',
@@ -62,7 +69,7 @@ function reportFile(
   }
 
   // Replace newline with %0A
-  const errorMsg = Mustache.render(defaultErrorTemplate, templateArgs).replace(
+  const errorMsg = Mustache.render(annotationTemplate, templateArgs).replace(
     '\n',
     '%0A'
   )
@@ -87,10 +94,16 @@ function reportFile(
   }
 }
 
+function getAnnotationTemplate(): string {
+  const userTemplate = core.getInput('error_template')
+  return userTemplate !== '' ? userTemplate : defaultErrorTemplate
+}
+
 async function run(): Promise<void> {
   try {
     const scan_glob: string = core.getInput('glob', {required: true})
     const suggestions: boolean = core.getInput('suggestions') !== 'false'
+    const annotationTemplate = getAnnotationTemplate()
     core.debug(`Scanning glob ${scan_glob}`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
 
     const possibleLinkDestinations: string[] = await calculatePossibleLinkDestinations(
@@ -102,7 +115,8 @@ async function run(): Promise<void> {
     const failed = await checkFiles(
       globber,
       suggestions,
-      possibleLinkDestinations
+      possibleLinkDestinations,
+      annotationTemplate
     )
 
     if (failed) {

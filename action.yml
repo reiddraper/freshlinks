@@ -10,7 +10,7 @@ inputs:
     description: 'Provide link suggestions when an invalid link is found'
   error_template:
     required: false
-    description: 'A mustache template string to override error messages.'
+    description: 'A mustache template string to override error messages. See the README for more detailed information.'
 runs:
   using: 'node12'
   main: 'freshlinks-action/dist/index.js'

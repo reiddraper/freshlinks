@@ -2379,7 +2379,7 @@ function calculatePossibleLinkDestinations(suggestions) {
         return possibleLinkDestinations;
     });
 }
-function checkFiles(globber, suggestions, possibleLinkDestinations) {
+function checkFiles(globber, suggestions, possibleLinkDestinations, annotationTemplate) {
     var e_1, _a;
     return __awaiter(this, void 0, void 0, function* () {
         let failCount = 0;
@@ -2390,7 +2390,7 @@ function checkFiles(globber, suggestions, possibleLinkDestinations) {
                     failCount++;
                 }
                 if (valid === freshlinks.LinkValidity.Invalid) {
-                    reportFile(link, suggestions, possibleLinkDestinations);
+                    reportFile(link, suggestions, possibleLinkDestinations, annotationTemplate);
                 }
             }
         }
@@ -2404,7 +2404,7 @@ function checkFiles(globber, suggestions, possibleLinkDestinations) {
         return failCount > 0 ? true : false;
     });
 }
-function reportFile(link, suggestions, possibleLinkDestinations) {
+function reportFile(link, suggestions, possibleLinkDestinations, annotationTemplate) {
     const sourceFile = link.sourceFile.replace('/home/runner/work/freshlinks/freshlinks/', '');
     const suggestion = calculateSuggestion();
     const templateArgs = { link: link.link, suggestion: undefined };
@@ -2412,9 +2412,7 @@ function reportFile(link, suggestions, possibleLinkDestinations) {
         templateArgs.suggestion = { suggested_link: suggestion };
     }
     // Replace newline with %0A
-    const errorMsg = mustache_1.default
-        .render(defaultErrorTemplate, templateArgs)
-        .replace('\n', '%0A');
+    const errorMsg = mustache_1.default.render(annotationTemplate, templateArgs).replace('\n', '%0A');
     const msg = `file=${sourceFile},line=${link.startLine},col=${link.startCol}::${errorMsg}`;
     console.log(`::error ${msg}`); // eslint-disable-line no-console
     function calculateSuggestion() {
@@ -2429,15 +2427,20 @@ function reportFile(link, suggestions, possibleLinkDestinations) {
         return null;
     }
 }
+function getAnnotationTemplate() {
+    const userTemplate = core.getInput('error_template');
+    return (userTemplate !== '') ? userTemplate : defaultErrorTemplate;
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const scan_glob = core.getInput('glob', { required: true });
             const suggestions = core.getInput('suggestions') !== 'false';
+            const annotationTemplate = getAnnotationTemplate();
             core.debug(`Scanning glob ${scan_glob}`); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
             const possibleLinkDestinations = yield calculatePossibleLinkDestinations(suggestions);
             const globber = yield glob.create(scan_glob);
-            const failed = yield checkFiles(globber, suggestions, possibleLinkDestinations);
+            const failed = yield checkFiles(globber, suggestions, possibleLinkDestinations, annotationTemplate);
             if (failed) {
                 core.setFailed('Invalid links found');
             }
