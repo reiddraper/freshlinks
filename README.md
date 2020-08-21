@@ -25,6 +25,9 @@ jobs:
           # Put in a glob pattern to find the
           # files you want Freshlinks to scan
           glob: 'docs/**/*.md'
+          # An optional bool to enable link
+          # suggestions: default to `true`
+          suggestions: true
           # An *optional* error message template
           # to provide your own error message to users.
           # See the rest of the README for details
