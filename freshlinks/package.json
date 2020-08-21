@@ -1,6 +1,6 @@
 {
   "name": "freshlinks",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "description": "Freshlinks",
   "main": "lib/main.js",
