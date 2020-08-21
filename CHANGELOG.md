@@ -1,3 +1,7 @@
+## v0.0.5
+
+Bugfix: replace all instances of newline in custom error-template
+
 ## v0.0.4
 
 A error template support -- give your users a custom message when their links are broken!
