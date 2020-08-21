@@ -20,12 +20,42 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Freshlinks
-        uses: reiddraper/freshlinks@v0.0.3
+        uses: reiddraper/freshlinks@v0.0.4
         with:
-          # put in a glob pattern to find the
+          # Put in a glob pattern to find the
           # files you want Freshlinks to scan
           glob: 'docs/**/*.md'
+          # An *optional* error message template
+          # to provide your own error message to users.
+          # See the rest of the README for details
+          error-template: |
+            Oops! You made a mistake with {{ link }}
+            {{ #suggestion }}
+            [Clippy] Maybe try {{ suggested_link }}?
+            {{ /suggestion }}
 ```
+
+### Error template syntax
+
+A custom error message can be provided, which will be used when creating Check Annotations. This is useful if you'd like to tailor the error message to point to documentation for your organization or project.
+The syntax uses [mustache](https://mustache.github.io/) templates, which are documented in more detail on the [manual page](https://mustache.github.io/mustache.5.html).
+
+Freshlinks supports the following tags:
+
+- `link`: The broken link, as it appeared in the markdown document
+- `suggestion`: A mustache "section", to be used like `{{ #suggestion }} ... {{ /suggestion }}
+- `suggested_link`: A suggested 'fix' to the link, used inside of a `suggestion` section
+
+Here's an example:
+
+```mustache
+Oops! You made a mistake with {{ link }}
+{{ #suggestion }}
+[Clippy] Maybe try {{ suggested_link }}?
+{{ /suggestion }}
+```
+
+The line which suggests an alternative will only be rendered if a suggestion was found.
 
 ## Command-line or Node project
 

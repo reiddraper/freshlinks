@@ -95,7 +95,7 @@ function reportFile(
 }
 
 function getAnnotationTemplate(): string {
-  const userTemplate = core.getInput('error_template')
+  const userTemplate = core.getInput('error-template')
   return userTemplate !== '' ? userTemplate : defaultErrorTemplate
 }
 

@@ -2428,8 +2428,8 @@ function reportFile(link, suggestions, possibleLinkDestinations, annotationTempl
     }
 }
 function getAnnotationTemplate() {
-    const userTemplate = core.getInput('error_template');
-    return (userTemplate !== '') ? userTemplate : defaultErrorTemplate;
+    const userTemplate = core.getInput('error-template');
+    return userTemplate !== '' ? userTemplate : defaultErrorTemplate;
 }
 function run() {
     return __awaiter(this, void 0, void 0, function* () {

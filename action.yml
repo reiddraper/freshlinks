@@ -8,7 +8,7 @@ inputs:
   suggestions:
     required: false
     description: 'Provide link suggestions when an invalid link is found'
-  error_template:
+  error-template:
     required: false
     description: 'A mustache template string to override error messages. See the README for more detailed information.'
 runs:
