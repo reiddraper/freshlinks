@@ -2412,7 +2412,10 @@ function reportFile(link, suggestions, possibleLinkDestinations, annotationTempl
         templateArgs.suggestion = { suggested_link: suggestion };
     }
     // Replace newline with %0A
-    const errorMsg = mustache_1.default.render(annotationTemplate, templateArgs).replace('\n', '%0A');
+    const errorMsg = mustache_1.default.render(annotationTemplate, templateArgs).replace(
+    // We can't simply use '\n', since replace with a string on replaces
+    // the first occurrence
+    /\n/g, '%0A');
     const msg = `file=${sourceFile},line=${link.startLine},col=${link.startCol}::${errorMsg}`;
     console.log(`::error ${msg}`); // eslint-disable-line no-console
     function calculateSuggestion() {

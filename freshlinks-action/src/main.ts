@@ -70,7 +70,9 @@ function reportFile(
 
   // Replace newline with %0A
   const errorMsg = Mustache.render(annotationTemplate, templateArgs).replace(
-    '\n',
+    // We can't simply use '\n', since replace with a string on replaces
+    // the first occurrence
+    /\n/g,
     '%0A'
   )
 
