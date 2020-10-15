@@ -24,7 +24,7 @@ export async function parse_markdown_links_from_file(
   try {
     while ((event = walker.next())) {
       node = event.node
-      if (event.entering && node.type === 'link') {
+      if (event.entering && (node.type === 'link' || node.type === 'image')) {
         if (node.destination && node.parent) {
           let startLine, startCol, endLine, endCol: number | undefined
           const maybe_sourcepos = find_source_pos(node)

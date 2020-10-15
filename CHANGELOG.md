@@ -1,6 +1,10 @@
+## v0.1.0
+
+Check images with relative links.
+
 ## v0.0.5
 
-Bugfix: replace all instances of newline in custom error-template
+Bugfix: replace all instances of newline in custom error-template.
 
 ## v0.0.4
 
