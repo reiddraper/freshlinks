@@ -9,6 +9,8 @@
     },
     "rules": {
       "no-console": "off",
+      "no-shadow" : "off",
+      "@typescript-eslint/no-shadow": "error",
       "eslint-comments/no-use": "off",
       "import/no-namespace": "off",
       "no-unused-vars": "off",

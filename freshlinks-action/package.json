@@ -31,25 +31,24 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/glob": "^0.1.0",
-    "commonmark": "^0.29.2",
     "freshlinks": "file:../freshlinks",
-    "mustache": "^4.0.1"
+    "mustache": "^4.2.0"
   },
   "devDependencies": {
-    "@types/commonmark": "^0.27.4",
     "@types/jest": "^26.0.14",
     "@types/mustache": "^4.0.1",
     "@types/node": "^14.11.8",
-    "@typescript-eslint/parser": "^3.10.1",
-    "@zeit/ncc": "^0.22.3",
-    "eslint": "^7.11.0",
-    "eslint-plugin-github": "^4.1.1",
-    "eslint-plugin-jest": "^23.20.0",
-    "jest": "^24.9.0",
-    "jest-circus": "^26.5.3",
-    "js-yaml": "^3.14.0",
-    "prettier": "2.0.5",
-    "ts-jest": "^24.3.0",
-    "typescript": "^3.9.7"
+    "@typescript-eslint/parser": "^4.20.0",
+    "@vercel/ncc": "^0.27.0",
+    "eslint": "^7.23.0",
+    "eslint-plugin-github": "^4.1.2",
+    "eslint-plugin-jest": "^24.3.2",
+    "jest": "^26.6.3",
+    "jest-circus": "^26.6.3",
+    "js-yaml": "^4.0.0",
+    "prettier": "2.1.1",
+    "svg-element-attributes": "1.3.1",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
   }
 }

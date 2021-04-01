@@ -19,8 +19,9 @@ async function run(): Promise<void> {
           'When a broken link is detected, suggest a potential fix by considering the files stored in the Git repository. Note, this must be run in a Git repository for this functionality to work.'
       }
     })
+    .parserConfiguration({'parse-numbers': false})
     .strict().argv
-  const files = cmdLineArguments._
+  const files = cmdLineArguments._ as string[]
   let exitCode = 0
 
   let possibleLinkDestinations: string[]

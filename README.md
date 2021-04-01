@@ -24,7 +24,7 @@ jobs:
         with:
           # Put in a glob pattern to find the
           # files you want Freshlinks to scan
-          glob: 'docs/**/*.md'
+          glob: "docs/**/*.md"
           # An optional bool to enable link
           # suggestions: default to `true`
           suggestions: true
