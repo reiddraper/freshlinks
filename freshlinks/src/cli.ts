@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 
-import {parse_markdown_links_from_file} from './parse-markdown-links'
 import {formatInvalidMarkdownLink} from './format'
-import {valid_link, LinkValidity} from './validate-link'
-import {suggestPath, SUGGEST_MIN_DISTANCE} from './suggest-path'
 import {gitLsFiles} from './git'
-import * as yargs from 'yargs'
-import * as process from 'process'
+
+import {parse_markdown_links_from_file} from './parse-markdown-links'
+import {SUGGEST_MIN_DISTANCE, suggestPath} from './suggest-path'
+import {LinkValidity, valid_link} from './validate-link'
+
 import chalk from 'chalk'
+
+import * as process from 'process'
+import * as yargs from 'yargs'
 
 async function run(): Promise<void> {
   const cmdLineArguments = yargs
@@ -20,7 +23,8 @@ async function run(): Promise<void> {
       }
     })
     .parserConfiguration({'parse-numbers': false})
-    .strict().argv
+    .strict()
+    .parseSync()
   const files = cmdLineArguments._ as string[]
   let exitCode = 0
 
@@ -57,7 +61,11 @@ async function run(): Promise<void> {
         }
       }
     } catch (error) {
-      console.error(`Error caught processing ${file}: ${error.message}`)
+      if (error instanceof Error) {
+        console.error(`Error caught processing ${file}: ${error.message}`)
+      } else {
+        console.error(`Error caught processing ${file}: ${error}`)
+      }
       exitCode = 1
     }
   }

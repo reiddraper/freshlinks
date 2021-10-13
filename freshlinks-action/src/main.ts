@@ -103,7 +103,10 @@ function getAnnotationTemplate(): string {
 
 async function run(): Promise<void> {
   try {
-    const scan_glob: string = core.getInput('glob', {required: true})
+    const scan_glob_raw: string = core.getInput('glob', {required: true})
+    const scan_glob_arr = scan_glob_raw.split(',').map(s => s.trim())
+    const scan_glob = scan_glob_arr.join('\n')
+
     const suggestions: boolean = core.getInput('suggestions') !== 'false'
     const annotationTemplate = getAnnotationTemplate()
     core.debug(`Scanning glob ${scan_glob}`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
@@ -125,7 +128,11 @@ async function run(): Promise<void> {
       core.setFailed('Invalid links found')
     }
   } catch (error) {
-    core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.setFailed(error)
+    } else {
+      core.setFailed(`Caught an error that is not an instance of Error`)
+    }
   }
 }
 
