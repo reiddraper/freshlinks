@@ -29,7 +29,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.9.1",
     "@actions/glob": "^0.1.0",
     "freshlinks": "file:../freshlinks",
     "mustache": "^4.2.0"
